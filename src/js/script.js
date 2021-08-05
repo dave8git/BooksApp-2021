@@ -43,29 +43,57 @@ class books {
     
     console.log(thisBooks.booklist);
   }
+//   initActions() {
+//     const thisBooks = this;
+//     for (let book of thisBooks.dom.books) {
+//       book.addEventListener('dblclick', function(event) {
+//         event.preventDefault();
+//         book.classList.toggle('favorite');
+//         let bookAttr = book.getAttribute('data-id');
+        
+//         if(!thisBooks.favoriteBooks.includes(bookAttr)) {
+//           thisBooks.favoriteBooks.push(bookAttr);
+//         } else {
+//           for(let favorite of thisBooks.favoriteBooks) {
+//             if(favorite == bookAttr) {
+//               thisBooks.favoriteBooks.splice(thisBooks.favoriteBooks.indexOf(favorite), 1);
+//             }
+//           }
+//         }
+//         console.log(thisBooks.favoriteBooks);
+//         console.log('hurrra!');
+//       }); 
+//     }
+//   }
+
   initActions() {
     const thisBooks = this;
     for (let book of thisBooks.dom.books) {
-      book.addEventListener('dblclick', function(event) {
-        event.preventDefault();
-        book.classList.toggle('favorite');
-        let bookAttr = book.getAttribute('data-id');
-        
-        if(!thisBooks.favoriteBooks.includes(bookAttr)) {
-          thisBooks.favoriteBooks.push(bookAttr);
-        } else {
-          for(let favorite of thisBooks.favoriteBooks) {
-            if(favorite == bookAttr) {
-              thisBooks.favoriteBooks.splice(thisBooks.favoriteBooks.indexOf(favorite), 1);
-            }
-          }
-        }
-        console.log(thisBooks.favoriteBooks);
-        console.log('hurrra!');
-      }); 
+        console.log(book);
+        book.addEventListener('dblclick', thisBooks.bookSelector(book));
+      //book.addEventListener('dblclick', thisBooks.bookSelector(book));
     }
   }
+  bookSelector(book) {
+    const thisBooks = this;
+
+    book.classList.toggle('favorite');
+    let bookAttr = book.getAttribute('data-id');   
+    if(!thisBooks.favoriteBooks.includes(bookAttr)) {
+      thisBooks.favoriteBooks.push(bookAttr);
+    } else {
+      for(let favorite of thisBooks.favoriteBooks) {
+        if(favorite == bookAttr) {
+          thisBooks.favoriteBooks.splice(thisBooks.favoriteBooks.indexOf(favorite), 1);
+        }
+      }
+    }
+    console.log(thisBooks.favoriteBooks);
+    console.log('hurrra!');
+  } 
 }
+
+
 
 const newBooks = new books();
 
