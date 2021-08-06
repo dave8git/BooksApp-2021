@@ -47,7 +47,7 @@ class books {
   initActions() {
     const thisBooks = this;
     document.querySelector(select.containerOf.booklist).addEventListener('dblclick', function(e) {
-      if (e.target.classList.contains('.book__image')) {
+      if (e.target.parentNode.parentNode.classList.contains('.book__image')) {
         thisBooks.bookSelector();
       }
     });
