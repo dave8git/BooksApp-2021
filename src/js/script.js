@@ -6,6 +6,9 @@ const select = {
     booklist: '.books-list',
     bookImage: '.book-image',
   },
+  form: {
+    checkbox: '.filters form',
+  }
 };
 
 const templates = {
@@ -19,18 +22,26 @@ class books {
     thisBooks.render();
     thisBooks.getElements();
     thisBooks.initActions(); 
+    //thisBooks.booksFilter(); 
     
   }
   getElements() {
     const thisBooks = this; 
     thisBooks.dom = {};
     thisBooks.favoriteBooks = [];
+    thisBooks.filters = [];
     thisBooks.books = dataSource.books; 
     thisBooks.dom.books = thisBooks.booklist.querySelectorAll('.book__image');
+    thisBooks.dom.filters = document.querySelector(select.form.checkbox);
     console.log('thisBooks.dom.books', thisBooks.dom.books);
 
     //thisBooks.element.querySelector(.book)
     
+  }
+  booksFilter(e) {
+    const thisBooks = this;
+    console.log('thisBooks.dom.filters', thisBooks.dom.filters);
+    console.log(e);
   }
   render() {
     const thisBooks = this;
@@ -41,17 +52,21 @@ class books {
       thisBooks.booklist.appendChild(thisBooks.element);
     }
     
-    console.log(thisBooks.booklist);
+    //console.log(thisBooks.booklist);
   }
 
   initActions() {
     const thisBooks = this;
     document.querySelector(select.containerOf.booklist).addEventListener('dblclick', function(e) {
-      console.log(e.target.parentNode.parentNode.classList.contains('book__image'));
-      console.log(e.target.parentNode.parentNode.parentNode);
+      //console.log(e.target.parentNode.parentNode.classList.contains('book__image'));
+      //console.log(e.target.parentNode.parentNode.parentNode);
       if (e.target.parentNode.parentNode.classList.contains('book__image')) {
         thisBooks.bookSelector(e.target.parentNode.parentNode);
       }
+    });
+    thisBooks.dom.filters.addEventListener('click', function(e) {
+      e.preventDefault(); 
+      thisBooks.booksFilter(e); 
     });
   }
   bookSelector(book) {
@@ -67,7 +82,7 @@ class books {
         }
       }
     }
-    console.log(thisBooks.favoriteBooks);
+    //console.log(thisBooks.favoriteBooks);
     console.log('hurrra!');
   } 
 }
