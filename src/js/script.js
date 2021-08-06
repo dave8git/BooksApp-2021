@@ -42,6 +42,49 @@ class books {
     const thisBooks = this;
     console.log('thisBooks.dom.filters', thisBooks.dom.filters);
     console.log(e);
+    if (e.target.tagName == 'INPUT' && e.target.type == 'checkbox' && e.target.name == 'filter') {
+      console.log(e.target.value);
+      if(e.target.checked) {
+        thisBooks.filters.push(e.target.value);
+      } else {
+        for(let filter of thisBooks.filters) {
+          thisBooks.filters.splice(thisBooks.filters.indexOf(filter), 1);
+        }
+      }
+    }
+    console.log('thisBooks.favoriteBooks', thisBooks.filters);
+  }
+
+  shouldBeHidden() {
+    const thisBooks = this;
+    let shouldBeHidden = false;
+      
+    for (let book of dataSource.books) {
+      const id = book.id;
+      for (let filter of thisBooks.filters) {
+        console.log('filter',filter);
+        console.log('book', book.details.adults);
+        if(!book.details[filter]) {
+          console.log('true');
+          shouldBeHidden = false;
+        } else {
+          shouldBeHidden = true;
+          console.log('false');
+          
+        }
+      }
+      if(shouldBeHidden) {
+        console.log('fsldkaflkjsalkdfj', book);
+        console.log(thisBooks.dom.books);
+        let pickedBook = document.querySelector('.book__image[data-id=' + `"${id}"` + ']');
+        pickedBook.classList.add('hidden');
+        console.log('id', id);
+      } else {
+        let pickedBook = document.querySelector('.book__image[data-id=' + `"${id}"` + ']');
+        pickedBook.classList.remove('hidden');
+        console.log('id', id);
+      }
+    }
   }
   render() {
     const thisBooks = this;
@@ -51,7 +94,6 @@ class books {
       thisBooks.booklist = document.querySelector(select.containerOf.booklist);
       thisBooks.booklist.appendChild(thisBooks.element);
     }
-    
     //console.log(thisBooks.booklist);
   }
 
@@ -65,8 +107,9 @@ class books {
       }
     });
     thisBooks.dom.filters.addEventListener('click', function(e) {
-      e.preventDefault(); 
+      //e.preventDefault(); 
       thisBooks.booksFilter(e); 
+      thisBooks.shouldBeHidden();
     });
   }
   bookSelector(book) {
