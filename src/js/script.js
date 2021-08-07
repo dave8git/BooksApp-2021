@@ -1,3 +1,5 @@
+
+
 const select = {
   templateOf: {
     book: '#template-book',
@@ -88,13 +90,17 @@ class books {
   }
   render() {
     const thisBooks = this;
+    const Rating = 5;
     for (let book of dataSource.books) {
       const generatedHTML = templates.bookTemplate(book);
       thisBooks.element = utils.createDOMFromHTML(generatedHTML);
+      const ratingBgc = thisBooks.determineRatingBgc(book.rating);
+      const ratingWidth = thisBooks.determineWidth(book.rating);
       thisBooks.booklist = document.querySelector(select.containerOf.booklist);
       thisBooks.booklist.appendChild(thisBooks.element);
-    }
-    //console.log(thisBooks.booklist);
+      console.log(ratingBgc);
+      console.log(ratingWidth);
+    }   
   }
 
   initActions() {
@@ -127,10 +133,27 @@ class books {
     }
     //console.log(thisBooks.favoriteBooks);
     console.log('hurrra!');
+    
   } 
+  
+  determineRatingBgc(Rating) {
+    if (Rating < 6) {
+      return 'background: linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
+    }
+    if (Rating > 6 && Rating <= 8) {
+      return 'background: linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
+    }
+    if (Rating > 8 && Rating <= 9) {
+      return 'background: linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
+    }
+    if (Rating > 9) {
+      return 'background: linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
+    }
+  }
+  determineWidth(Rating) {
+    return Math.floor(Rating*10) + '%';
+  }
 }
-
-
 
 const newBooks = new books();
 
