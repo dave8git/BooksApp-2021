@@ -90,7 +90,6 @@ class books {
   }
   render() {
     const thisBooks = this;
-    const Rating = 5;
     for (let book of dataSource.books) {
       const generatedHTML = templates.bookTemplate(book);
       thisBooks.element = utils.createDOMFromHTML(generatedHTML);
