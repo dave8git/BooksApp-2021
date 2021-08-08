@@ -91,14 +91,17 @@ class books {
   render() {
     const thisBooks = this;
     for (let book of dataSource.books) {
-      const generatedHTML = templates.bookTemplate(book);
-      thisBooks.element = utils.createDOMFromHTML(generatedHTML);
       const ratingBgc = thisBooks.determineRatingBgc(book.rating);
       const ratingWidth = thisBooks.determineWidth(book.rating);
+      book['ratingBgc'] = ratingBgc;
+      book['ratingWidth'] = ratingWidth;
+      const generatedHTML = templates.bookTemplate(book);
+      thisBooks.element = utils.createDOMFromHTML(generatedHTML);
       thisBooks.booklist = document.querySelector(select.containerOf.booklist);
       thisBooks.booklist.appendChild(thisBooks.element);
       console.log(ratingBgc);
       console.log(ratingWidth);
+      console.log('book', book);
     }   
   }
 
