@@ -68,9 +68,9 @@ class books {
         console.log('book', book.details.adults);
         if(!book.details[filter]) {
           console.log('true');
-          shouldBeHidden = false;
-        } else {
           shouldBeHidden = true;
+        } else {
+          shouldBeHidden = false;
           console.log('false');
           
         }
